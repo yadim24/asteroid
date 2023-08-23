@@ -1,0 +1,35 @@
+.wrapper {
+  max-width: 1356px;
+  max-height: 836px;
+  position: relative;
+}
+
+.header-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 375px;
+  padding: 16px;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.logo-name {
+  color: #f86600;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.logo-text {
+  color: #fff;
+  line-height: 24px;
+}
+
+.earth-wrapper {
+  position: absolute;
+  top: 136px;
+  width: 536px;
+  height: 620px;
+}
+
+.earth {
+}
