@@ -3,7 +3,7 @@ import { inter } from "./fonts";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Armagedon",
+  title: "Armageddon",
   description: "Care about asteroids",
 };
 
