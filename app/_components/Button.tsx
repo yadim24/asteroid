@@ -1,16 +1,16 @@
 /* eslint-disable react/button-has-type */
 import clsx from 'clsx';
-import { ButtonHTMLAttributes, FC } from 'react';
+import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 import { inter } from '../fonts';
 import styles from './Button.module.css';
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  text: string;
+  children: ReactNode;
   mode?: 'invisible' | 'primary' | 'secondary';
 };
 
 export const Button: FC<Props> = ({
-  text,
+  children,
   mode = 'primary',
   className,
   ...restProps
@@ -29,7 +29,7 @@ export const Button: FC<Props> = ({
         className,
       )}
     >
-      {text}
+      {children}
     </button>
   );
 };

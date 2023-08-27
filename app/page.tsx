@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { ReactElement } from 'react';
 import { Arrow } from './_components/Arrow';
+import { Button } from './_components/Button';
 import { inter, passionOne } from './fonts';
 import styles from './page.module.css';
 
@@ -58,6 +59,18 @@ export default function Home(): ReactElement {
                   <div>
                     <p className={styles['asteroid-name']}>2021 FQ</p>
                     <p className={styles.diameter}>Ø 85 м</p>
+                  </div>
+                </div>
+                <div className={styles['order-container']}>
+                  <Button mode="primary">ЗАКАЗАТЬ</Button>
+                  <div className={styles['warning-container']}>
+                    <Image
+                      src="/warning.svg"
+                      alt="warning"
+                      height={20}
+                      width={20}
+                    />
+                    <span className={styles.dangerous}>Опасен</span>
                   </div>
                 </div>
               </div>

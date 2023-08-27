@@ -24,20 +24,21 @@
   line-height: 24px;
 }
 
-.earth-wrapper {
-  position: absolute;
+.main-wrapper {
+  position: relative;
+}
+
+.earth {
+  position: fixed;
   top: 136px;
-  width: 536px;
-  height: 620px;
+}
+
+.container {
+  margin-left: 528px;
 }
 
 .list-wrapper {
   min-width: 400px;
-}
-
-.main-wrapper {
-  display: flex;
-  gap: 127px;
 }
 
 .header {
@@ -99,4 +100,21 @@
 
 .diameter {
   font-size: 12px;
+}
+
+.order-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.warning-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  padding-bottom: 2px;
+}
+
+.dangerous {
+  font-size: 14px;
 }
