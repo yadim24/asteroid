@@ -7,12 +7,14 @@ import styles from './Button.module.css';
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
   mode?: 'invisible' | 'primary' | 'secondary';
+  isPressed?: boolean;
 };
 
 export const Button: FC<Props> = ({
   children,
   mode = 'primary',
   className,
+  isPressed,
   ...restProps
 }) => {
   return (
@@ -23,6 +25,7 @@ export const Button: FC<Props> = ({
         inter.className,
         {
           [styles['button-invisible']]: mode === 'invisible',
+          [styles['button-invisible-pressed']]: isPressed,
           [styles['button-primary']]: mode === 'primary',
           [styles['button-secondary']]: mode === 'secondary',
         },

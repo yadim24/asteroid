@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { ReactElement } from 'react';
 import { Arrow } from './_components/Arrow';
 import { Button } from './_components/Button';
-import { inter, passionOne } from './fonts';
+import { passionOne } from './fonts';
 import styles from './page.module.css';
 
 export default function Home(): ReactElement {
@@ -31,15 +31,12 @@ export default function Home(): ReactElement {
         <div className={styles.container}>
           <div className={styles['list-wrapper']}>
             <h1 className={styles.header}>Ближайшие подлёты астероидов</h1>
-            <p className={styles.units}>
-              <button className={clsx(styles.kilometers, inter.className)}>
+            <div className={styles.units}>
+              <Button mode="invisible" isPressed>
                 в километрах
-              </button>{' '}
-              |{' '}
-              <button className={clsx(styles.lunar, inter.className)}>
-                в лунных орбитах
-              </button>
-            </p>
+              </Button>{' '}
+              | <Button mode="invisible">в лунных орбитах</Button>
+            </div>
             <div className={styles.list}>
               <div className={styles.asteroid}>
                 <h2 className={styles.date}>12 сент 2023</h2>
@@ -74,6 +71,11 @@ export default function Home(): ReactElement {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className={styles.basket}>
+              <p className={styles['basket-header']}>Корзина</p>
+              <p className={styles['basket-content']}>2 астероида</p>
+              <Button mode="secondary">Отправить</Button>
             </div>
           </div>
         </div>

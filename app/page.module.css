@@ -38,7 +38,7 @@
 }
 
 .list-wrapper {
-  min-width: 400px;
+  width: 400px;
 }
 
 .header {
@@ -117,4 +117,24 @@
 
 .dangerous {
   font-size: 14px;
+}
+
+.basket {
+  position: fixed;
+  top: 138px;
+  left: 928px;
+  width: 150px;
+  padding: 16px;
+  border-radius: 24px;
+  background: #232526;
+  line-height: 24px;
+}
+
+.basket-header {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.basket-content {
+  margin-bottom: 32px;
 }
