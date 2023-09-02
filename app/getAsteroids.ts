@@ -3,7 +3,7 @@ import { z } from 'zod';
 const validateResponse = z.object({
   links: z.object({
     next: z.string(),
-    previous: z.string(),
+    prev: z.string(),
     self: z.string(),
   }),
   near_earth_objects: z.record(
@@ -35,19 +35,26 @@ const validateResponse = z.object({
 
 type ResponseType = z.infer<typeof validateResponse>;
 
-export const getAsteroids = async (): Promise<ResponseType> => {
+export const getAsteroids = async ({
+  pageParam,
+}: {
+  pageParam: string;
+}): Promise<ResponseType> => {
   const date = new Date();
   const formatDate = `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
     -2,
   )}-${`0${date.getDate()}`.slice(-2)}`;
+
   const queryParams = new URLSearchParams({
     start_date: formatDate,
+    end_date: formatDate,
     api_key: 'DEMO_KEY',
   });
 
-  const response = await fetch(
-    `https://api.nasa.gov/neo/rest/v1/feed?${queryParams}`,
-  );
+  const initLink = `https://api.nasa.gov/neo/rest/v1/feed?${queryParams}`;
+  const currentLink = pageParam ?? initLink;
+
+  const response = await fetch(currentLink);
 
   const validatedResponse = validateResponse.safeParse(await response.json());
 

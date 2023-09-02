@@ -1,12 +1,55 @@
+'use client';
+
+import { useInfiniteQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { ReactElement } from 'react';
+import { Fragment, ReactElement, useState } from 'react';
 import { Arrow } from './_components/Arrow';
 import { Button } from './_components/Button';
 import { passionOne } from './fonts';
+import { getAsteroids } from './getAsteroids';
 import styles from './page.module.css';
 
 export default function Home(): ReactElement {
+  const [isLunar, setIsLunar] = useState(false);
+
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ['getAsteroids'],
+    queryFn: ({ pageParam }) => getAsteroids({ pageParam }),
+    getNextPageParam: (lastPage) => lastPage.links.next,
+  });
+
+  const formatDate = (date: string): string => {
+    const formattedDate = new Date(date);
+    const options: Intl.DateTimeFormatOptions = {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    };
+
+    return formattedDate.toLocaleDateString('ru-RU', options);
+  };
+
+  const formatDistance = (distance: string): string => {
+    const options = { maximumFractionDigits: 0 };
+
+    return `${parseFloat(distance).toLocaleString('ru-RU', options)} км`;
+  };
+
+  const formatName = (name: string): string => {
+    if (name[0] !== '(') return name;
+
+    return name.slice(1, name.length - 1);
+  };
+
   return (
     <>
       <header className={styles['header-wrapper']}>
@@ -38,39 +81,73 @@ export default function Home(): ReactElement {
               | <Button mode="invisible">в лунных орбитах</Button>
             </div>
             <div className={styles.list}>
-              <div className={styles.asteroid}>
-                <h2 className={styles.date}>12 сент 2023</h2>
-                <div className={styles['data-container']}>
-                  <div>
-                    <p>5 652 334 км</p>
-                    <div className={styles['arrow-wrapper']}>
-                      <Arrow />
-                    </div>
-                  </div>
-                  <Image
-                    src="/asteroid.png"
-                    alt="asteroid"
-                    width={22}
-                    height={24}
-                  />
-                  <div>
-                    <p className={styles['asteroid-name']}>2021 FQ</p>
-                    <p className={styles.diameter}>Ø 85 м</p>
-                  </div>
-                </div>
-                <div className={styles['order-container']}>
-                  <Button mode="primary">ЗАКАЗАТЬ</Button>
-                  <div className={styles['warning-container']}>
-                    <Image
-                      src="/warning.svg"
-                      alt="warning"
-                      height={20}
-                      width={20}
-                    />
-                    <span className={styles.dangerous}>Опасен</span>
-                  </div>
-                </div>
-              </div>
+              {data?.pages.map((page) => (
+                <Fragment key={page.links.self}>
+                  {Object.values(page.near_earth_objects)
+                    .flat()
+                    .map((asteroid) => (
+                      <div className={styles.asteroid} key={asteroid.name}>
+                        <h2 className={styles.date}>
+                          {formatDate(
+                            asteroid.close_approach_data[0].close_approach_date,
+                          )}
+                        </h2>
+                        <div className={styles['data-container']}>
+                          <div>
+                            <p>
+                              {formatDistance(
+                                asteroid.close_approach_data[0].miss_distance
+                                  .kilometers,
+                              )}
+                            </p>
+                            <div className={styles['arrow-wrapper']}>
+                              <Arrow />
+                            </div>
+                          </div>
+                          <Image
+                            src="/asteroid.png"
+                            alt="asteroid"
+                            width={
+                              asteroid.estimated_diameter.meters
+                                .estimated_diameter_max < 100
+                                ? 22
+                                : 36
+                            }
+                            height={
+                              asteroid.estimated_diameter.meters
+                                .estimated_diameter_max < 100
+                                ? 24
+                                : 40
+                            }
+                          />
+                          <div>
+                            <p className={styles['asteroid-name']}>
+                              {formatName(asteroid.name)}
+                            </p>
+                            <p className={styles.diameter}>{`Ø ${Math.round(
+                              asteroid.estimated_diameter.meters
+                                .estimated_diameter_max,
+                            )} м`}</p>
+                          </div>
+                        </div>
+                        <div className={styles['order-container']}>
+                          <Button mode="primary">ЗАКАЗАТЬ</Button>
+                          {asteroid.is_potentially_hazardous_asteroid && (
+                            <div className={styles['warning-container']}>
+                              <Image
+                                src="/warning.svg"
+                                alt="warning"
+                                height={20}
+                                width={20}
+                              />
+                              <span className={styles.dangerous}>Опасен</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                </Fragment>
+              ))}
             </div>
             <div className={styles.basket}>
               <p className={styles['basket-header']}>Корзина</p>

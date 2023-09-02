@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ReactNode } from 'react';
+import { QueryProvider } from './QueryProvider';
 import { inter } from './fonts';
 import './globals.css';
 
@@ -15,7 +16,9 @@ export default function RootLayout({
 }): ReactNode {
   return (
     <html lang="ru">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <QueryProvider>{children}</QueryProvider>
+      </body>
     </html>
   );
 }
