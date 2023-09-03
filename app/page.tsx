@@ -38,10 +38,29 @@ export default function Home(): ReactElement {
     return formattedDate.toLocaleDateString('ru-RU', options);
   };
 
-  const formatDistance = (distance: string): string => {
+  const formatDistanceKm = (distance: string): string => {
     const options = { maximumFractionDigits: 0 };
 
     return `${parseFloat(distance).toLocaleString('ru-RU', options)} км`;
+  };
+
+  const formatDistanceLunar = (distance: string): string => {
+    const options = { maximumFractionDigits: 0 };
+    const formattedDistanceLunar = parseFloat(distance).toLocaleString(
+      'ru-RU',
+      options,
+    );
+
+    switch (formattedDistanceLunar.at(-1)) {
+      case '1':
+        return `${formattedDistanceLunar} лунная орбита`;
+      case '2':
+      case '3':
+      case '4':
+        return `${formattedDistanceLunar} лунные орбиты`;
+      default:
+        return `${formattedDistanceLunar} лунных орбит`;
+    }
   };
 
   const formatName = (name: string): string => {
@@ -75,10 +94,21 @@ export default function Home(): ReactElement {
           <div className={styles['list-wrapper']}>
             <h1 className={styles.header}>Ближайшие подлёты астероидов</h1>
             <div className={styles.units}>
-              <Button mode="invisible" isPressed>
+              <Button
+                mode="invisible"
+                isPressed={!isLunar}
+                onClick={(): void => setIsLunar(false)}
+              >
                 в километрах
               </Button>{' '}
-              | <Button mode="invisible">в лунных орбитах</Button>
+              |{' '}
+              <Button
+                mode="invisible"
+                isPressed={isLunar}
+                onClick={(): void => setIsLunar(true)}
+              >
+                в лунных орбитах
+              </Button>
             </div>
             <div className={styles.list}>
               {data?.pages.map((page) => (
@@ -95,10 +125,15 @@ export default function Home(): ReactElement {
                         <div className={styles['data-container']}>
                           <div>
                             <p>
-                              {formatDistance(
-                                asteroid.close_approach_data[0].miss_distance
-                                  .kilometers,
-                              )}
+                              {isLunar
+                                ? formatDistanceLunar(
+                                    asteroid.close_approach_data[0]
+                                      .miss_distance.lunar,
+                                  )
+                                : formatDistanceKm(
+                                    asteroid.close_approach_data[0]
+                                      .miss_distance.kilometers,
+                                  )}
                             </p>
                             <div className={styles['arrow-wrapper']}>
                               <Arrow />

@@ -21,7 +21,7 @@ export const Button: FC<Props> = ({
     <button
       {...restProps}
       className={clsx(
-        'button',
+        styles.button,
         inter.className,
         {
           [styles['button-invisible']]: mode === 'invisible',
