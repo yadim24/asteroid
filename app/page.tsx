@@ -3,7 +3,8 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import Image from 'next/image';
-import { Fragment, ReactElement, useState } from 'react';
+import { Fragment, ReactElement, useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { Arrow } from './_components/Arrow';
 import { Button } from './_components/Button';
 import { passionOne } from './fonts';
@@ -12,6 +13,8 @@ import styles from './page.module.css';
 
 export default function Home(): ReactElement {
   const [isLunar, setIsLunar] = useState(false);
+  const [cart, setCart] = useState<string[]>([]);
+  const { ref, inView } = useInView();
 
   const {
     data,
@@ -25,7 +28,17 @@ export default function Home(): ReactElement {
     queryKey: ['getAsteroids'],
     queryFn: ({ pageParam }) => getAsteroids({ pageParam }),
     getNextPageParam: (lastPage) => lastPage.links.next,
+    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 60,
+    cacheTime: 1000 * 60 * 60,
   });
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView]);
 
   const formatDate = (date: string): string => {
     const formattedDate = new Date(date);
@@ -69,6 +82,25 @@ export default function Home(): ReactElement {
     return name.slice(1, name.length - 1);
   };
 
+  const addToCart = (id: string): void => {
+    if (cart.includes(id)) return;
+
+    setCart([...cart, id]);
+  };
+
+  const formatQty = (qty: number): string => {
+    switch (qty.toString().at(-1)) {
+      case '1':
+        return `${qty} астероид`;
+      case '2':
+      case '3':
+      case '4':
+        return `${qty} астероида`;
+      default:
+        return `${qty} астероидов`;
+    }
+  };
+
   return (
     <>
       <header className={styles['header-wrapper']}>
@@ -81,15 +113,6 @@ export default function Home(): ReactElement {
         </div>
       </header>
       <main className={styles['main-wrapper']}>
-        <Image
-          className={styles.earth}
-          src="/zemlia_lg.png"
-          alt="earth"
-          width={400}
-          height={620}
-          priority
-        />
-
         <div className={styles.container}>
           <div className={styles['list-wrapper']}>
             <h1 className={styles.header}>Ближайшие подлёты астероидов</h1>
@@ -166,7 +189,12 @@ export default function Home(): ReactElement {
                           </div>
                         </div>
                         <div className={styles['order-container']}>
-                          <Button mode="primary">ЗАКАЗАТЬ</Button>
+                          <Button
+                            mode="primary"
+                            onClick={() => addToCart(asteroid.id)}
+                          >
+                            ЗАКАЗАТЬ
+                          </Button>
                           {asteroid.is_potentially_hazardous_asteroid && (
                             <div className={styles['warning-container']}>
                               <Image
@@ -183,10 +211,24 @@ export default function Home(): ReactElement {
                     ))}
                 </Fragment>
               ))}
+              <Image
+                ref={ref}
+                className={styles.loader}
+                src="/loader.gif"
+                alt="loading..."
+                width={160}
+                height={20}
+              />
             </div>
             <div className={styles.basket}>
               <p className={styles['basket-header']}>Корзина</p>
-              <p className={styles['basket-content']}>2 астероида</p>
+              {cart.length ? (
+                <p className={styles['basket-content']}>
+                  {formatQty(cart.length)}
+                </p>
+              ) : (
+                <>&nbsp;</>
+              )}
               <Button mode="secondary">Отправить</Button>
             </div>
           </div>

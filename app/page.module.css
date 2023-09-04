@@ -28,11 +28,6 @@
   position: relative;
 }
 
-.earth {
-  position: fixed;
-  top: 136px;
-}
-
 .container {
   margin-left: 528px;
 }
@@ -138,4 +133,8 @@
 
 .basket-content {
   margin-bottom: 32px;
+}
+
+.loader {
+  margin-left: 40px;
 }

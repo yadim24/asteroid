@@ -23,6 +23,7 @@ const validateResponse = z.object({
             estimated_diameter_max: z.number(),
           }),
         }),
+        id: z.string(),
         is_potentially_hazardous_asteroid: z.boolean(),
         links: z.object({
           self: z.string(),
