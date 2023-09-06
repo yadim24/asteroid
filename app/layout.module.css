@@ -1,8 +1,36 @@
-.body {
+.header-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 375px;
+  padding: 16px;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.logo-name {
+  color: #f86600;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.logo-text {
+  color: #fff;
+  line-height: 24px;
+}
+
+.main-wrapper {
   position: relative;
 }
 
 .earth {
   position: fixed;
   top: 136px;
+}
+
+.container {
+  margin-left: 528px;
+}
+
+.list-wrapper {
+  width: 432px;
 }

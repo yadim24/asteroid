@@ -1,37 +1,37 @@
 import { z } from 'zod';
 
+const validateAsteroidData = z.object({
+  close_approach_data: z.array(
+    z.object({
+      close_approach_date: z.string(),
+      miss_distance: z.object({
+        kilometers: z.string(),
+        lunar: z.string(),
+      }),
+    }),
+  ),
+  estimated_diameter: z.object({
+    meters: z.object({
+      estimated_diameter_max: z.number(),
+    }),
+  }),
+  id: z.string(),
+  is_potentially_hazardous_asteroid: z.boolean(),
+  links: z.object({
+    self: z.string(),
+  }),
+  name: z.string(),
+});
+
+export type AsteroidDataType = z.infer<typeof validateAsteroidData>;
+
 const validateResponse = z.object({
   links: z.object({
     next: z.string(),
     prev: z.string(),
     self: z.string(),
   }),
-  near_earth_objects: z.record(
-    z.array(
-      z.object({
-        close_approach_data: z.array(
-          z.object({
-            close_approach_date: z.string(),
-            miss_distance: z.object({
-              kilometers: z.string(),
-              lunar: z.string(),
-            }),
-          }),
-        ),
-        estimated_diameter: z.object({
-          meters: z.object({
-            estimated_diameter_max: z.number(),
-          }),
-        }),
-        id: z.string(),
-        is_potentially_hazardous_asteroid: z.boolean(),
-        links: z.object({
-          self: z.string(),
-        }),
-        name: z.string(),
-      }),
-    ),
-  ),
+  near_earth_objects: z.record(z.array(validateAsteroidData)),
 });
 
 type ResponseType = z.infer<typeof validateResponse>;

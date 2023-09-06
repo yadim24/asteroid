@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import { QueryProvider } from './QueryProvider';
-import { inter } from './fonts';
+import { inter, passionOne } from './fonts';
 import './globals.css';
 import styles from './layout.module.css';
 
@@ -21,7 +21,16 @@ export default function RootLayout({
     <html lang="ru">
       <body className={clsx(styles.body, inter.className)}>
         <QueryProvider>
-          <main>
+          <header className={styles['header-wrapper']}>
+            <p className={clsx(styles['logo-name'], passionOne.className)}>
+              ARMAGEDDON 2023
+            </p>
+            <div className={styles['logo-text']}>
+              <p>ООО “Команда им. Б. Уиллиса”.</p>
+              <p>Взрываем астероиды с 1998 года.</p>
+            </div>
+          </header>
+          <main className={styles['main-wrapper']}>
             <Image
               className={styles.earth}
               src="/zemlia_lg.png"
@@ -30,7 +39,9 @@ export default function RootLayout({
               height={620}
               priority
             />
-            {children}
+            <div className={styles.container}>
+              <div className={styles['list-wrapper']}>{children}</div>
+            </div>
           </main>
         </QueryProvider>
       </body>

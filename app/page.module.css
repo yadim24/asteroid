@@ -1,41 +1,3 @@
-.wrapper {
-  max-width: 1356px;
-  max-height: 836px;
-  position: relative;
-}
-
-.header-wrapper {
-  display: flex;
-  flex-direction: column;
-  max-width: 375px;
-  padding: 16px;
-  gap: 8px;
-  margin-bottom: 15px;
-}
-
-.logo-name {
-  color: #f86600;
-  font-size: 32px;
-  font-weight: 400;
-}
-
-.logo-text {
-  color: #fff;
-  line-height: 24px;
-}
-
-.main-wrapper {
-  position: relative;
-}
-
-.container {
-  margin-left: 528px;
-}
-
-.list-wrapper {
-  width: 432px;
-}
-
 .header {
   font-size: 28px;
   margin-bottom: 8px;
@@ -61,58 +23,11 @@
   text-decoration: underline;
 }
 
-.asteroid {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.date {
-  font-size: 24px;
-}
-
-.data-container {
-  display: flex;
-  gap: 8px;
-}
-
-.arrow-wrapper {
-  position: relative;
-  width: 100%;
-  height: 6px;
-  margin-top: 8px;
-}
-
-.arrow {
-  width: 100%;
-  object-fit: contain;
-}
-
-.asteroid-name {
-  font-weight: 700;
-  text-decoration: underline;
-}
-
-.diameter {
-  font-size: 12px;
-}
-
 .order-container {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.warning-container {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  padding-bottom: 2px;
-}
-
-.dangerous {
-  font-size: 14px;
+  margin-bottom: 24px;
 }
 
 .basket {
