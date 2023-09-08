@@ -7,12 +7,12 @@ import { useInView } from 'react-intersection-observer';
 import { AsteroidData } from './AsteroidData';
 import { Button } from './_components/Button';
 import { Warning } from './_components/Warning';
-import { getAsteroids } from './getAsteroids';
+import { AsteroidDataType, getAsteroids } from './getAsteroids';
 import styles from './page.module.css';
 
 export default function Home(): ReactElement {
   const [isLunar, setIsLunar] = useState(false);
-  const [cart, setCart] = useState<string[]>([]);
+  const [cart, setCart] = useState<AsteroidDataType[]>([]);
   const { ref, inView } = useInView();
 
   const { data, fetchNextPage } = useInfiniteQuery({
@@ -44,10 +44,10 @@ export default function Home(): ReactElement {
     }
   };
 
-  const addToCart = (id: string): void => {
-    if (cart.includes(id)) return;
+  const addToCart = (asteroid: AsteroidDataType): void => {
+    if (cart.includes(asteroid)) return;
 
-    setCart([...cart, id]);
+    setCart([...cart, asteroid]);
   };
 
   return (
@@ -70,24 +70,21 @@ export default function Home(): ReactElement {
           в лунных орбитах
         </Button>
       </div>
-      <div className={styles.list}>
+      <div>
         {data?.pages.map((page) => (
           <Fragment key={page.links.self}>
             {Object.values(page.near_earth_objects)
               .flat()
               .map((asteroid) => (
-                <>
+                <Fragment key={asteroid.id}>
                   <AsteroidData asteroid={asteroid} isLunar={isLunar} />
                   <div className={styles['order-container']}>
-                    <Button
-                      mode="primary"
-                      onClick={() => addToCart(asteroid.id)}
-                    >
-                      {cart.includes(asteroid.id) ? 'В КОРЗИНЕ' : 'ЗАКАЗАТЬ'}
+                    <Button mode="primary" onClick={() => addToCart(asteroid)}>
+                      {cart.includes(asteroid) ? 'В КОРЗИНЕ' : 'ЗАКАЗАТЬ'}
                     </Button>
                     {asteroid.is_potentially_hazardous_asteroid && <Warning />}
                   </div>
-                </>
+                </Fragment>
               ))}
           </Fragment>
         ))}

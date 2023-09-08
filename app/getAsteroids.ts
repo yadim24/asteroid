@@ -20,7 +20,6 @@ const validateAsteroidData = z.object({
   links: z.object({
     self: z.string(),
   }),
-  name: z.string(),
 });
 
 export type AsteroidDataType = z.infer<typeof validateAsteroidData>;

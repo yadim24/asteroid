@@ -53,7 +53,7 @@ export const AsteroidData: FC<Props> = ({ asteroid, isLunar }) => {
   };
 
   return (
-    <div className={styles.asteroid} key={asteroid.name}>
+    <div className={styles.asteroid}>
       <h2 className={styles.date}>
         {formatDate(asteroid.close_approach_data[0].close_approach_date)}
       </h2>
@@ -87,7 +87,7 @@ export const AsteroidData: FC<Props> = ({ asteroid, isLunar }) => {
           }
         />
         <div>
-          <p className={styles['asteroid-name']}>{formatName(asteroid.name)}</p>
+          <p className={styles['asteroid-name']}>{formatName(asteroid.id)}</p>
           <p className={styles.diameter}>{`Ø ${Math.round(
             asteroid.estimated_diameter.meters.estimated_diameter_max,
           )} м`}</p>
