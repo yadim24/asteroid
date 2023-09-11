@@ -16,6 +16,7 @@ const validateAsteroidData = z.object({
     }),
   }),
   id: z.string(),
+  name: z.string(),
   is_potentially_hazardous_asteroid: z.boolean(),
   links: z.object({
     self: z.string(),

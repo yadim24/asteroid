@@ -2,17 +2,21 @@
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import { Fragment, ReactElement, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { Fragment, ReactElement, useContext, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { AsteroidData } from './AsteroidData';
+import { GlobalStateContext } from './GlobalStateContext';
 import { Button } from './_components/Button';
 import { Warning } from './_components/Warning';
 import { AsteroidDataType, getAsteroids } from './getAsteroids';
+import { invariant } from './invariant';
 import styles from './page.module.css';
 
 export default function Home(): ReactElement {
-  const [isLunar, setIsLunar] = useState(false);
-  const [cart, setCart] = useState<AsteroidDataType[]>([]);
+  const contextValue = useContext(GlobalStateContext);
+  invariant(contextValue != null, 'Не подключен провайдер!');
+  const [globalState, dispatch] = contextValue;
   const { ref, inView } = useInView();
 
   const { data, fetchNextPage } = useInfiniteQuery({
@@ -45,9 +49,9 @@ export default function Home(): ReactElement {
   };
 
   const addToCart = (asteroid: AsteroidDataType): void => {
-    if (cart.includes(asteroid)) return;
+    if (globalState.cart.includes(asteroid)) return;
 
-    setCart([...cart, asteroid]);
+    dispatch({ type: 'addedToCart', asteroid });
   };
 
   return (
@@ -56,16 +60,16 @@ export default function Home(): ReactElement {
       <div className={styles.units}>
         <Button
           mode="invisible"
-          isPressed={!isLunar}
-          onClick={(): void => setIsLunar(false)}
+          isPressed={!globalState.isLunar}
+          onClick={() => dispatch({ type: 'toKm' })}
         >
           в километрах
         </Button>{' '}
         |{' '}
         <Button
           mode="invisible"
-          isPressed={isLunar}
-          onClick={(): void => setIsLunar(true)}
+          isPressed={globalState.isLunar}
+          onClick={() => dispatch({ type: 'toLunar' })}
         >
           в лунных орбитах
         </Button>
@@ -77,10 +81,15 @@ export default function Home(): ReactElement {
               .flat()
               .map((asteroid) => (
                 <Fragment key={asteroid.id}>
-                  <AsteroidData asteroid={asteroid} isLunar={isLunar} />
+                  <AsteroidData
+                    asteroid={asteroid}
+                    isLunar={globalState.isLunar}
+                  />
                   <div className={styles['order-container']}>
                     <Button mode="primary" onClick={() => addToCart(asteroid)}>
-                      {cart.includes(asteroid) ? 'В КОРЗИНЕ' : 'ЗАКАЗАТЬ'}
+                      {globalState.cart.includes(asteroid)
+                        ? 'В КОРЗИНЕ'
+                        : 'ЗАКАЗАТЬ'}
                     </Button>
                     {asteroid.is_potentially_hazardous_asteroid && <Warning />}
                   </div>
@@ -99,12 +108,16 @@ export default function Home(): ReactElement {
       </div>
       <div className={styles.basket}>
         <p className={styles['basket-header']}>Корзина</p>
-        {cart.length ? (
-          <p className={styles['basket-content']}>{formatQty(cart.length)}</p>
-        ) : (
-          <>&nbsp;</>
-        )}
-        <Button mode="secondary">Отправить</Button>
+        <p className={styles['basket-content']}>
+          {globalState.cart.length ? (
+            formatQty(globalState.cart.length)
+          ) : (
+            <>&nbsp;</>
+          )}
+        </p>
+        <Link className={styles['send-button']} href="/order">
+          Отправить
+        </Link>
       </div>
     </>
   );

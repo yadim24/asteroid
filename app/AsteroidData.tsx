@@ -87,7 +87,7 @@ export const AsteroidData: FC<Props> = ({ asteroid, isLunar }) => {
           }
         />
         <div>
-          <p className={styles['asteroid-name']}>{formatName(asteroid.id)}</p>
+          <p className={styles['asteroid-name']}>{formatName(asteroid.name)}</p>
           <p className={styles.diameter}>{`Ø ${Math.round(
             asteroid.estimated_diameter.meters.estimated_diameter_max,
           )} м`}</p>
