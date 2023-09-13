@@ -2,6 +2,10 @@ import Image from 'next/image';
 import { FC } from 'react';
 import styles from './AsteroidData.module.css';
 import { Arrow } from './_components/Arrow';
+import { formatDate } from './_shared/formatDate';
+import { formatDistanceKm } from './_shared/formatDistanceKm';
+import { formatDistanceLunar } from './_shared/formatDistanceLunar';
+import { formatName } from './_shared/formateName';
 import { AsteroidDataType } from './getAsteroids';
 
 type Props = {
@@ -10,52 +14,14 @@ type Props = {
 };
 
 export const AsteroidData: FC<Props> = ({ asteroid, isLunar }) => {
-  const formatDate = (date: string): string => {
-    const formattedDate = new Date(date);
-    const options: Intl.DateTimeFormatOptions = {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-    };
-
-    return formattedDate.toLocaleDateString('ru-RU', options);
-  };
-
-  const formatDistanceKm = (distance: string): string => {
-    const options = { maximumFractionDigits: 0 };
-
-    return `${parseFloat(distance).toLocaleString('ru-RU', options)} км`;
-  };
-
-  const formatDistanceLunar = (distance: string): string => {
-    const options = { maximumFractionDigits: 0 };
-    const formattedDistanceLunar = parseFloat(distance).toLocaleString(
-      'ru-RU',
-      options,
-    );
-
-    switch (formattedDistanceLunar.at(-1)) {
-      case '1':
-        return `${formattedDistanceLunar} лунная орбита`;
-      case '2':
-      case '3':
-      case '4':
-        return `${formattedDistanceLunar} лунные орбиты`;
-      default:
-        return `${formattedDistanceLunar} лунных орбит`;
-    }
-  };
-
-  const formatName = (name: string): string => {
-    if (name[0] !== '(') return name;
-
-    return name.slice(1, name.length - 1);
-  };
-
   return (
     <div className={styles.asteroid}>
       <h2 className={styles.date}>
-        {formatDate(asteroid.close_approach_data[0].close_approach_date)}
+        {formatDate(asteroid.close_approach_data[0].close_approach_date, {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        })}
       </h2>
       <div className={styles['data-container']}>
         <div>

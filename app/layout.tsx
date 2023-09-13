@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { CartState } from './CartState';
 import { QueryProvider } from './QueryProvider';
 import { inter, passionOne } from './fonts';
@@ -51,6 +53,7 @@ export default function RootLayout({
             </div>
           </main>
         </QueryProvider>
+        <ToastContainer />
       </body>
     </html>
   );

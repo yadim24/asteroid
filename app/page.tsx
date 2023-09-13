@@ -9,6 +9,7 @@ import { AsteroidData } from './AsteroidData';
 import { GlobalStateContext } from './GlobalStateContext';
 import { Button } from './_components/Button';
 import { Warning } from './_components/Warning';
+import { formatQty } from './_shared/formatQty';
 import { AsteroidDataType, getAsteroids } from './getAsteroids';
 import { invariant } from './invariant';
 import styles from './page.module.css';
@@ -34,19 +35,6 @@ export default function Home(): ReactElement {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
-
-  const formatQty = (qty: number): string => {
-    switch (qty.toString().at(-1)) {
-      case '1':
-        return `${qty} астероид`;
-      case '2':
-      case '3':
-      case '4':
-        return `${qty} астероида`;
-      default:
-        return `${qty} астероидов`;
-    }
-  };
 
   const addToCart = (asteroid: AsteroidDataType): void => {
     if (globalState.cart.includes(asteroid)) return;

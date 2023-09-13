@@ -33,7 +33,7 @@ export default function Order(): ReactElement {
         href="/"
         onClick={() => dispatch({ type: 'resetCart' })}
       >
-        Сделать новый заказ!
+        OK
       </Link>
     </>
   );
