@@ -1,0 +1,10 @@
+.warning-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  padding-bottom: 2px;
+}
+
+.dangerous {
+  font-size: 14px;
+}

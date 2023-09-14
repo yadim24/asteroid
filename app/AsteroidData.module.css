@@ -1,0 +1,37 @@
+.asteroid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.date {
+  font-size: 24px;
+}
+
+.data-container {
+  display: flex;
+  gap: 8px;
+}
+
+.arrow-wrapper {
+  position: relative;
+  width: 100%;
+  height: 6px;
+  margin-top: 8px;
+}
+
+.arrow {
+  width: 100%;
+  object-fit: contain;
+}
+
+.asteroid-name {
+  font-weight: 700;
+  text-decoration: underline;
+  color: #fff;
+}
+
+.diameter {
+  font-size: 12px;
+}
