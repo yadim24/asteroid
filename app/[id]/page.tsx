@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { ReactNode } from 'react';
@@ -25,19 +27,19 @@ export default function Asteroid({ params: { id } }: Props): ReactNode {
   return (
     <>
       <h1 className={styles.header}>{formatName(data.name)}</h1>
-      <table>
+      <table className={styles.table}>
         <thead>
-          <th>
-            <td>Время сближения</td>
-            <td>Расстояние до Земли</td>
-            <td>Скорость относительно Земли</td>
-            <td>Орбита вокруг тела</td>
-          </th>
+          <tr>
+            <th className={styles['th-date']}>Время сближения</th>
+            <th>Расстояние до Земли</th>
+            <th>Скорость относительно Земли</th>
+            <th>Орбита вокруг тела</th>
+          </tr>
         </thead>
         <tbody>
           {data.close_approach_data.map((date) => (
             <tr key={date.close_approach_date_full}>
-              <td>
+              <td className={styles['td-date']}>
                 {formatDate(date.close_approach_date_full, {
                   day: 'numeric',
                   month: 'short',
@@ -46,11 +48,13 @@ export default function Asteroid({ params: { id } }: Props): ReactNode {
                   minute: 'numeric',
                 })}
               </td>
-              <td>{formatDistanceKm(date.miss_distance.kilometers)}</td>
-              <td>
+              <td className={styles.td}>
+                {formatDistanceKm(date.miss_distance.kilometers)}
+              </td>
+              <td className={styles.td}>
                 {formatSpeed(date.relative_velocity.kilometers_per_second)}
               </td>
-              <td>{date.orbiting_body}</td>
+              <td className={styles.td}>{date.orbiting_body}</td>
             </tr>
           ))}
         </tbody>

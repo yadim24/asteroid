@@ -1,0 +1,23 @@
+.header {
+  margin-bottom: 24px;
+  font-size: 28px;
+}
+
+.table {
+  table-layout: fixed;
+  width: 480px;
+  font-size: 14px;
+}
+
+.th-date {
+  width: 168px;
+}
+
+.td-date {
+  text-align: left;
+  padding: 8px 0;
+}
+
+.td {
+  text-align: center;
+}

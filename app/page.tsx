@@ -95,14 +95,16 @@ export default function Home(): ReactElement {
         />
       </div>
       <div className={styles.basket}>
-        <p className={styles['basket-header']}>Корзина</p>
-        <p className={styles['basket-content']}>
-          {globalState.cart.length ? (
-            formatQty(globalState.cart.length)
-          ) : (
-            <>&nbsp;</>
-          )}
-        </p>
+        <div>
+          <p className={styles['basket-header']}>Корзина</p>
+          <p className={styles['basket-content']}>
+            {globalState.cart.length ? (
+              formatQty(globalState.cart.length)
+            ) : (
+              <>&nbsp;</>
+            )}
+          </p>
+        </div>
         <Link className={styles['send-button']} href="/order">
           Отправить
         </Link>

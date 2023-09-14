@@ -37,21 +37,42 @@ export default function RootLayout({
               <p>Взрываем астероиды с 1998 года.</p>
             </div>
           </header>
-          <main className={styles['main-wrapper']}>
-            <Image
-              className={styles.earth}
-              src="/zemlia_lg.png"
-              alt="earth"
-              width={400}
-              height={620}
-              priority
-            />
-            <div className={styles.container}>
-              <div className={styles['list-wrapper']}>
-                <CartState>{children}</CartState>
+          <div className={styles['main-footer-wrapper']}>
+            <main className={styles['main-wrapper']}>
+              <Image
+                className={styles.earth}
+                src="/zemlia_lg.png"
+                alt="Earth"
+                width={400}
+                height={620}
+                priority
+              />
+              <Image
+                className={styles['earth-md']}
+                src="/zemlia_md.png"
+                alt="Earth"
+                width={304}
+                height={436}
+                priority
+              />
+              <Image
+                className={styles['earth-mobile']}
+                src="/zemlia_mobile.png"
+                alt="Earth"
+                width={48}
+                height={436}
+                priority
+              />
+              <div className={styles.container}>
+                <div className={styles['list-wrapper']}>
+                  <CartState>{children}</CartState>
+                </div>
               </div>
-            </div>
-          </main>
+            </main>
+            <footer className={styles.footer}>
+              <p>© Все права и планета защищены</p>
+            </footer>
+          </div>
         </QueryProvider>
         <ToastContainer />
       </body>

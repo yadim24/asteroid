@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC } from 'react';
 import styles from './AsteroidData.module.css';
 import { Arrow } from './_components/Arrow';
@@ -53,7 +54,9 @@ export const AsteroidData: FC<Props> = ({ asteroid, isLunar }) => {
           }
         />
         <div>
-          <p className={styles['asteroid-name']}>{formatName(asteroid.name)}</p>
+          <Link className={styles['asteroid-name']} href={`/${asteroid.id}`}>
+            {formatName(asteroid.name)}
+          </Link>
           <p className={styles.diameter}>{`Ø ${Math.round(
             asteroid.estimated_diameter.meters.estimated_diameter_max,
           )} м`}</p>

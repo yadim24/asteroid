@@ -29,6 +29,12 @@
   line-height: 20px;
   letter-spacing: 1px;
   border: none;
+  transition: 0.15s;
+}
+
+.button-primary:hover {
+  background-color: #f86600;
+  color: #fff;
 }
 
 .button-secondary {
