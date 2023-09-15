@@ -24,10 +24,10 @@ export const Button: FC<Props> = ({
         styles.button,
         inter.className,
         {
-          [styles['button-invisible']]: mode === 'invisible',
-          [styles['button-invisible-pressed']]: isPressed,
-          [styles['button-primary']]: mode === 'primary',
-          [styles['button-secondary']]: mode === 'secondary',
+          [styles['button-invisible']!]: mode === 'invisible',
+          [styles['button-invisible-pressed']!]: isPressed,
+          [styles['button-primary']!]: mode === 'primary',
+          [styles['button-secondary']!]: mode === 'secondary',
         },
         className,
       )}

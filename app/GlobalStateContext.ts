@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { ActionType, GlobalState } from './globalReducer';
+import { ActionType, GlobalState } from './_providers/globalReducer';
 
 export type StateContext = [GlobalState, React.Dispatch<ActionType>] | null;
 
