@@ -1,5 +1,7 @@
 # Next.js приложение (TypeScript)
 
+https://asteroid-swart.vercel.app/
+
 ## Онлайн-сервис по мониторингу и уничтожению опасных астероидов на основе данных API NASA
 
 - АПИ: https://api.nasa.gov Asteroids - NeoWs.
