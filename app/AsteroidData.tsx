@@ -3,11 +3,11 @@ import Link from 'next/link';
 import { FC } from 'react';
 import styles from './AsteroidData.module.css';
 import { Arrow } from './_components/Arrow';
-import { formatDate } from './_shared/formatDate';
-import { formatDistanceKm } from './_shared/formatDistanceKm';
-import { formatDistanceLunar } from './_shared/formatDistanceLunar';
-import { formatName } from './_shared/formateName';
-import { AsteroidDataType } from './getAsteroids';
+import { AsteroidDataType } from './_rest-api/getAsteroidList';
+import { formatDate } from './_utils/formatDate';
+import { formatDistanceKm } from './_utils/formatDistanceKm';
+import { formatDistanceLunar } from './_utils/formatDistanceLunar';
+import { formatName } from './_utils/formateName';
 
 type Props = {
   asteroid: AsteroidDataType;
@@ -15,10 +15,16 @@ type Props = {
 };
 
 export const AsteroidData: FC<Props> = ({ asteroid, isLunar }) => {
+  const currentAsteroid = asteroid.close_approach_data[0];
+
+  if (!currentAsteroid) {
+    throw new Error('В индексе [0] отсуствуют астероиды');
+  }
+
   return (
     <div className={styles.asteroid}>
       <h2 className={styles.date}>
-        {formatDate(asteroid.close_approach_data[0].close_approach_date, {
+        {formatDate(currentAsteroid.close_approach_date, {
           day: 'numeric',
           month: 'short',
           year: 'numeric',
@@ -28,12 +34,8 @@ export const AsteroidData: FC<Props> = ({ asteroid, isLunar }) => {
         <div>
           <p>
             {isLunar
-              ? formatDistanceLunar(
-                  asteroid.close_approach_data[0].miss_distance.lunar,
-                )
-              : formatDistanceKm(
-                  asteroid.close_approach_data[0].miss_distance.kilometers,
-                )}
+              ? formatDistanceLunar(currentAsteroid.miss_distance.lunar)
+              : formatDistanceKm(currentAsteroid.miss_distance.kilometers)}
           </p>
           <div className={styles['arrow-wrapper']}>
             <Arrow />
@@ -54,7 +56,10 @@ export const AsteroidData: FC<Props> = ({ asteroid, isLunar }) => {
           }
         />
         <div>
-          <Link className={styles['asteroid-name']} href={`/${asteroid.id}`}>
+          <Link
+            className={styles['asteroid-name']}
+            href={`/asteroids/${asteroid.id}`}
+          >
             {formatName(asteroid.name)}
           </Link>
           <p className={styles.diameter}>{`Ø ${Math.round(

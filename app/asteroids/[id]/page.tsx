@@ -3,11 +3,11 @@
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { ReactNode } from 'react';
-import { formatDate } from '../_shared/formatDate';
-import { formatDistanceKm } from '../_shared/formatDistanceKm';
-import { formatSpeed } from '../_shared/formatSpeed';
-import { formatName } from '../_shared/formateName';
-import { getAsteroid } from './getAsteroid';
+import { getAsteroid } from '../../_rest-api/getAsteroid';
+import { formatDate } from '../../_utils/formatDate';
+import { formatDistanceKm } from '../../_utils/formatDistanceKm';
+import { formatSpeed } from '../../_utils/formatSpeed';
+import { formatName } from '../../_utils/formateName';
 import styles from './page.module.css';
 
 type Props = {
@@ -18,7 +18,7 @@ type Props = {
 
 export default function Asteroid({ params: { id } }: Props): ReactNode {
   const { data, isLoading } = useQuery({
-    queryKey: ['getAsteroid'],
+    queryKey: [getAsteroid.queryKey, { id }],
     queryFn: () => getAsteroid({ id }),
   });
 

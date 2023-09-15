@@ -1,4 +1,4 @@
-import { AsteroidDataType } from './getAsteroids';
+import { AsteroidDataType } from './_rest-api/getAsteroidList';
 
 export type GlobalState = {
   cart: AsteroidDataType[];

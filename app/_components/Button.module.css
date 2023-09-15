@@ -23,7 +23,7 @@
   align-items: center;
   border-radius: 16px;
   background: rgba(248, 102, 0, 0.15);
-  color: #f86600;
+  color: var(--primary-color);
   font-size: 11px;
   font-weight: 700;
   line-height: 20px;
@@ -33,7 +33,7 @@
 }
 
 .button-primary:hover {
-  background-color: #f86600;
+  background-color: var(--primary-color);
   color: #fff;
 }
 
@@ -43,7 +43,7 @@
   align-items: center;
   border-radius: 40px;
   border: none;
-  background: #f86600;
+  background: var(--primary-color);
   font-size: 16px;
   line-height: 24px;
   font-weight: 700;

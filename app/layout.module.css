@@ -8,7 +8,7 @@
 }
 
 .logo-name {
-  color: #f86600;
+  color: var(--primary-color);
   font-size: 32px;
   font-weight: 400;
   text-decoration: none;

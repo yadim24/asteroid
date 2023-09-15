@@ -9,9 +9,9 @@ import { AsteroidData } from './AsteroidData';
 import { GlobalStateContext } from './GlobalStateContext';
 import { Button } from './_components/Button';
 import { Warning } from './_components/Warning';
-import { formatQty } from './_shared/formatQty';
-import { AsteroidDataType, getAsteroids } from './getAsteroids';
-import { invariant } from './invariant';
+import { AsteroidDataType, getAsteroidList } from './_rest-api/getAsteroidList';
+import { formatQty } from './_utils/formatQty';
+import { invariant } from './_utils/invariant';
 import styles from './page.module.css';
 
 export default function Home(): ReactElement {
@@ -22,7 +22,7 @@ export default function Home(): ReactElement {
 
   const { data, fetchNextPage } = useInfiniteQuery({
     queryKey: ['getAsteroids'],
-    queryFn: ({ pageParam }) => getAsteroids({ pageParam }),
+    queryFn: ({ pageParam }) => getAsteroidList({ pageParam }),
     getNextPageParam: (lastPage) => lastPage.links.next,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60 * 60,

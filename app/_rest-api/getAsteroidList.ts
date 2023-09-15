@@ -36,7 +36,7 @@ const validateResponse = z.object({
 
 type ResponseType = z.infer<typeof validateResponse>;
 
-export const getAsteroids = async ({
+export const getAsteroidList = async ({
   pageParam,
 }: {
   pageParam: string;
@@ -66,4 +66,4 @@ export const getAsteroids = async ({
   throw new Error('Сервер вернул неверный формат данных');
 };
 
-getAsteroids.queryKey = 'getAsteroids';
+getAsteroidList.queryKey = 'getAsteroids';

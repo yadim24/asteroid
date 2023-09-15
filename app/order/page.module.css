@@ -13,7 +13,7 @@
   align-items: center;
   border-radius: 40px;
   border: none;
-  background: #f86600;
+  background: var(--primary-color);
   font-size: 16px;
   line-height: 24px;
   font-weight: 700;

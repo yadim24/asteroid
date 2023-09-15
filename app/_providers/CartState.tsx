@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactElement, ReactNode, useReducer } from 'react';
-import { GlobalStateContext } from './GlobalStateContext';
+import { GlobalStateContext } from '../GlobalStateContext';
 import { globalReducer } from './globalReducer';
 
 const initialState = {

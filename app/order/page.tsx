@@ -5,7 +5,7 @@ import { Fragment, ReactElement, useContext } from 'react';
 import { AsteroidData } from '../AsteroidData';
 import { GlobalStateContext } from '../GlobalStateContext';
 import { Warning } from '../_components/Warning';
-import { invariant } from '../invariant';
+import { invariant } from '../_utils/invariant';
 import styles from './page.module.css';
 
 export default function Order(): ReactElement {
