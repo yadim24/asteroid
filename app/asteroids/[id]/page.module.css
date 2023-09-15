@@ -16,10 +16,11 @@
 
 .td-date {
   text-align: left;
-  padding: 8px 0;
-  white-space: nowrap;
+  vertical-align: top;
+  padding-bottom: 8px;
 }
 
 .td {
   text-align: center;
+  vertical-align: top;
 }

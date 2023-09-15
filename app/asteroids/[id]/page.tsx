@@ -30,10 +30,10 @@ export default function Asteroid({ params: { id } }: Props): ReactNode {
       <table className={styles.table}>
         <thead>
           <tr>
-            <th className={styles.th}>Время сближения</th>
+            <th className={styles.th}>Время сближния</th>
             <th className={styles.th}>Расстояние до Земли, км</th>
             <th className={styles.th}>
-              Скорость относит. Земли,
+              Скорость относительно Земли,
               <br />
               км/сек
             </th>
