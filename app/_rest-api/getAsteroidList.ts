@@ -39,7 +39,7 @@ type ResponseType = z.infer<typeof validateResponse>;
 export const getAsteroidList = async ({
   pageParam,
 }: {
-  pageParam: string;
+  pageParam: string | null;
 }): Promise<ResponseType> => {
   const date = new Date();
   const formatDate = `${date.getFullYear()}-${`0${date.getMonth() + 1}`.slice(
@@ -53,7 +53,7 @@ export const getAsteroidList = async ({
   });
 
   const initLink = `https://api.nasa.gov/neo/rest/v1/feed?${queryParams}`;
-  const currentLink = pageParam ?? initLink;
+  const currentLink = pageParam?.replace('http:', 'https:') ?? initLink;
 
   const response = await fetch(currentLink);
 
