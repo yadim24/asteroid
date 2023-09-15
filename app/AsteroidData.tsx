@@ -35,7 +35,9 @@ export const AsteroidData: FC<Props> = ({ asteroid, isLunar }) => {
           <p>
             {isLunar
               ? formatDistanceLunar(currentAsteroid.miss_distance.lunar)
-              : formatDistanceKm(currentAsteroid.miss_distance.kilometers)}
+              : `${formatDistanceKm(
+                  currentAsteroid.miss_distance.kilometers,
+                )} км`}
           </p>
           <div className={styles['arrow-wrapper']}>
             <Arrow />

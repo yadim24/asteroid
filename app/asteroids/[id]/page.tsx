@@ -30,10 +30,14 @@ export default function Asteroid({ params: { id } }: Props): ReactNode {
       <table className={styles.table}>
         <thead>
           <tr>
-            <th className={styles['th-date']}>Время сближения</th>
-            <th>Расстояние до Земли</th>
-            <th>Скорость относительно Земли</th>
-            <th>Орбита вокруг тела</th>
+            <th className={styles.th}>Время сближения</th>
+            <th className={styles.th}>Расстояние до Земли, км</th>
+            <th className={styles.th}>
+              Скорость относит. Земли,
+              <br />
+              км/сек
+            </th>
+            <th className={styles.th}>Орбита вокруг тела</th>
           </tr>
         </thead>
         <tbody>
@@ -42,7 +46,7 @@ export default function Asteroid({ params: { id } }: Props): ReactNode {
               <td className={styles['td-date']}>
                 {formatDate(date.close_approach_date_full, {
                   day: 'numeric',
-                  month: 'short',
+                  month: 'numeric',
                   year: 'numeric',
                   hour: 'numeric',
                   minute: 'numeric',

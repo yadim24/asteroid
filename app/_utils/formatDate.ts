@@ -4,5 +4,5 @@ export const formatDate = (
 ): string => {
   const formattedDate = new Date(date);
 
-  return formattedDate.toLocaleDateString('ru-RU', options).replace('.', '');
+  return formattedDate.toLocaleDateString('ru-RU', options);
 };

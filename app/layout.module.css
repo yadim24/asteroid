@@ -80,6 +80,10 @@
     min-width: 375px;
   }
 
+  .main-wrapper {
+    padding-bottom: 80px;
+  }
+
   .earth-mobile {
     display: block;
   }

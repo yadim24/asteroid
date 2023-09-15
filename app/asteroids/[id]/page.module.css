@@ -4,18 +4,20 @@
 }
 
 .table {
-  table-layout: fixed;
-  width: 480px;
   font-size: 14px;
 }
 
-.th-date {
-  width: 168px;
+.th {
+  position: sticky;
+  top: 0;
+  padding: 8px 4px;
+  background-color: #000;
 }
 
 .td-date {
   text-align: left;
   padding: 8px 0;
+  white-space: nowrap;
 }
 
 .td {
